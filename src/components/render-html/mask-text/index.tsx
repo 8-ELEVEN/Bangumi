@@ -2,13 +2,14 @@
  * @Author: czy0729
  * @Date: 2019-08-14 10:03:12
  * @Last Modified by: czy0729
- * @Last Modified time: 2025-09-12 22:32:59
+ * @Last Modified time: 2026-02-26 21:52:01
  */
 import React, { useCallback, useState } from 'react'
 import { useObserver } from 'mobx-react'
 import { _ } from '@stores'
 import { stl } from '@utils'
 import { Text } from '../../text'
+import { extractText } from './utils'
 import { memoStyles } from './styles'
 
 import type { Props } from './types'
@@ -36,7 +37,7 @@ function MaskText({ style, children }: Props) {
         )}
         onPress={handlePress}
       >
-        {children}
+        {show ? children : extractText(children)}
       </Text>
     )
   })
