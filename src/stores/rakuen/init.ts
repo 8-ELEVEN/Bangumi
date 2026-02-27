@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-07-13 01:59:26
  * @Last Modified by: czy0729
- * @Last Modified time: 2025-10-31 23:45:20
+ * @Last Modified time: 2026-02-27 21:44:35
  */
 import {
   LIST_EMPTY,
@@ -13,7 +13,16 @@ import {
   MODEL_RAKUEN_TYPE
 } from '@constants'
 
-import type { Id, Loaded, RakuenScope, RakuenType, SubjectId, UserId } from '@types'
+import type {
+  Id,
+  Loaded,
+  RakuenScope,
+  RakuenType,
+  RakuenTypeGroup,
+  RakuenTypeMono,
+  SubjectId,
+  UserId
+} from '@types'
 import type {
   BlockedUsersItem,
   Blog,
@@ -214,9 +223,7 @@ export const INIT_BLOG = {
 
 const STATE = {
   /** 超展开列表 */
-  rakuen: {
-    0: LIST_EMPTY
-  },
+  rakuen: {} as Record<`${RakuenScope}|${RakuenType | RakuenTypeMono | RakuenTypeGroup}`, Rakuen>,
 
   /** 帖子历史查看信息 */
   readed: {

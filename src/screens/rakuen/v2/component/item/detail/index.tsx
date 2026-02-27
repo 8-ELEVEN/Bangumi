@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2021-01-21 19:23:54
  * @Last Modified by: czy0729
- * @Last Modified time: 2026-01-15 20:46:01
+ * @Last Modified time: 2026-02-28 00:38:17
  */
 import React, { useCallback, useState } from 'react'
 import { View } from 'react-native'
@@ -45,7 +45,7 @@ function Detail({ time, groupCn, userName, userId, avatar }: Props) {
           )}
         </VerticalAlign>
       </View>
-      {systemStore.setting.userAge && (
+      {systemStore.setting.userAge && !!(userId || avatar) && (
         <Flex.Item>
           <UserAge style={styles.userAge} value={userId} avatar={avatar} />
         </Flex.Item>

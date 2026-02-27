@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-07-13 18:59:53
  * @Last Modified by: czy0729
- * @Last Modified time: 2025-09-14 04:40:26
+ * @Last Modified time: 2026-02-27 21:57:31
  */
 import {
   cData,
@@ -57,7 +57,7 @@ export async function fetchRakuen(args: {
   const HTML = HTMLTrim(raw).match(/<div id="eden_tpc_list"><ul>(.+?)<\/ul><\/div>/)
 
   // -------------------- 分析HTML --------------------
-  const rakuen = []
+  const rakuen: RakuenItem[] = []
   if (HTML) {
     const tree = HTMLToTree(HTML[1])
     tree.children.forEach(item => {

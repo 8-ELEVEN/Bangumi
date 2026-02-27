@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2021-01-21 17:55:11
  * @Last Modified by: czy0729
- * @Last Modified time: 2025-10-17 11:49:44
+ * @Last Modified time: 2026-02-28 00:39:40
  */
 import React from 'react'
 import { View } from 'react-native'
@@ -24,12 +24,23 @@ function Content({
   avatar,
   isGroup
 }: Props) {
-  return useObserver(() => (
-    <View style={styles.item}>
-      <Title topicId={topicId} title={title} replyCount={replyCount} isGroup={isGroup} />
-      <Detail time={time} groupCn={groupCn} userName={userName} userId={userId} avatar={avatar} />
-    </View>
-  ))
+  return useObserver(() => {
+    const isMono = topicId.startsWith('crt/') || topicId.startsWith('prsn/')
+    const isEp = topicId.startsWith('ep/')
+
+    return (
+      <View style={styles.item}>
+        <Title topicId={topicId} title={title} replyCount={replyCount} isGroup={isGroup} />
+        <Detail
+          time={time}
+          groupCn={isMono ? '' : groupCn}
+          userName={isMono || isEp ? '' : userName}
+          userId={isMono || isEp ? '' : userId}
+          avatar={isMono || isEp ? '' : avatar}
+        />
+      </View>
+    )
+  })
 }
 
 export default Content

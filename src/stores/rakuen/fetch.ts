@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2023-04-24 14:26:25
  * @Last Modified by: czy0729
- * @Last Modified time: 2025-09-14 04:40:57
+ * @Last Modified time: 2026-02-27 21:58:58
  */
 import { getTimestamp, HTMLTrim } from '@utils'
 import { fetchHTML, xhrCustom } from '@utils/fetch'
@@ -58,31 +58,35 @@ import type { NotifyItem } from './types'
 
 export default class Fetch extends Computed {
   /** 获取超展开聚合列表 */
-  fetchRakuen = async (args: {
-    scope?: RakuenScope
-    type?: RakuenType | RakuenTypeMono | RakuenTypeGroup
-  }) => {
-    const { scope = DEFAULT_SCOPE, type = DEFAULT_TYPE } = args || {}
-    const list = await fetchRakuen({ scope, type })
-    if (!list?.length) return []
+  fetchRakuen = async (
+    scope: RakuenScope = DEFAULT_SCOPE,
+    type: RakuenType | RakuenTypeMono | RakuenTypeGroup = DEFAULT_TYPE
+  ) => {
+    const STATE_KEY = 'rakuen'
+    const ITEM_KEY = `${scope}|${type}` as const
 
-    const key = 'rakuen'
-    const stateKey = `${scope}|${type}`
-    this.setState({
-      [key]: {
-        [stateKey]: {
-          list,
-          pagination: {
-            page: 1,
-            pageTotal: 1
-          },
-          _loaded: getTimestamp()
-        }
+    try {
+      const list = await fetchRakuen({ scope, type })
+      if (list?.length) {
+        this.setState({
+          [STATE_KEY]: {
+            [ITEM_KEY]: {
+              list,
+              pagination: {
+                page: 1,
+                pageTotal: 1
+              },
+              _loaded: getTimestamp()
+            }
+          }
+        })
+        this.save(STATE_KEY)
       }
-    })
-    this.save(key)
+    } catch (error) {
+      this.error('fetchRakuen', error)
+    }
 
-    return list
+    return this[STATE_KEY](scope, type)
   }
 
   /** 获取帖子内容和留言 */
