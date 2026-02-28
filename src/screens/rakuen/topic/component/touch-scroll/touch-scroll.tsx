@@ -10,11 +10,11 @@ import { Flex, Text } from '@components'
 import { _ } from '@stores'
 import { getTimestamp, stl, titleCase } from '@utils'
 import { memo } from '@utils/decorators'
+import { useInsets } from '@utils/hooks'
 import { FROZEN_ARRAY, FROZEN_FN, IOS, MODEL_RAKUEN_SCROLL_DIRECTION } from '@constants'
 import { COMPONENT_MAIN, DEFAULT_PROPS, HIT_SLOP } from './ds'
 
 import type { TouchableWithoutFeedbackProps } from 'react-native'
-
 export const TouchScroll = memo(
   ({
     styles,
@@ -22,10 +22,11 @@ export const TouchScroll = memo(
     readedTime = 0,
     scrollDirection = 'right',
     directFloor = '',
-    isWebLogin = false,
     newFloorStyle = '角标',
     onPress = FROZEN_FN
   }) => {
+    const { headerHeight, bottom } = useInsets()
+
     /** 当前楼层 */
     const currentFloor = useMemo(
       () => (directFloor ? Number(directFloor.match(/\d+/)?.[0] || 0) : 0),
@@ -51,9 +52,14 @@ export const TouchScroll = memo(
       () =>
         stl(
           styles[`container${titleCase(scrollDirection)}`],
-          !isWebLogin && !isVertical && styles.notLogin
+          isVertical && {
+            top: headerHeight
+          },
+          !isVertical && {
+            bottom: bottom + 50
+          }
         ),
-      [styles, scrollDirection, isWebLogin, isVertical]
+      [styles, scrollDirection, isVertical, headerHeight, bottom]
     )
 
     const makePressProps = useCallback(
@@ -116,7 +122,7 @@ export const TouchScroll = memo(
                   {showFloorText ? (
                     <Text
                       style={_.container.block}
-                      size={8}
+                      size={isVertical ? 8 : 9}
                       type={isNew ? _.select('plain', 'icon') : 'icon'}
                       bold={isCurrent}
                       align='center'

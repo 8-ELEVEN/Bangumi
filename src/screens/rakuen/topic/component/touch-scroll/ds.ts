@@ -24,7 +24,6 @@ export const DEFAULT_PROPS = {
   readedTime: 0 as $['readed']['_time'],
   scrollDirection: MODEL_RAKUEN_SCROLL_DIRECTION.getValue<RakuenScrollDirection>('右侧'),
   directFloor: '' as string,
-  isWebLogin: false as boolean,
   newFloorStyle: '角标' as RakuenNewFloorStyleCn,
   onPress: FROZEN_FN
 } as const

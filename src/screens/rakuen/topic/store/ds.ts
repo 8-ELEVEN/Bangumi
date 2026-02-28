@@ -52,7 +52,7 @@ export const EXCLUDE_STATE = {
   translateResult: [] as TranslateResult,
 
   /** 楼层翻译缓存 */
-  translateResultFloor: {},
+  translateResultFloor: {} as Record<Id, string>,
 
   /** OTA 帖子快照 */
   topic: {
@@ -83,8 +83,8 @@ export const EXCLUDE_STATE = {
 export const STATE = {
   ...EXCLUDE_STATE,
 
-  /** 展开的子楼层id */
-  expands: [],
+  /** 展开的子楼层 ID */
+  expands: [] as Id[],
 
   /**
    * 评论是否只看

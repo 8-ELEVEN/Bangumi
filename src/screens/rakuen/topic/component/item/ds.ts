@@ -9,4 +9,4 @@ import { COMPONENT as PARENT } from '../ds'
 
 export const COMPONENT = rc(PARENT, 'Item')
 
-export const PRE_RENDER_INDEX = 4
+export const PRE_RENDER_INDEX = 8

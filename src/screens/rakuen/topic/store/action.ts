@@ -575,7 +575,7 @@ export default class Action extends Fetch {
   }
 
   /** 翻译楼层 */
-  doTranslateFloor = async (floorId, msg: string) => {
+  doTranslateFloor = async (floorId: Id, msg: string) => {
     const { translateResultFloor } = this.state
     if (translateResultFloor[floorId]) return
 

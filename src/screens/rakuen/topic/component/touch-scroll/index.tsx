@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import { Component } from '@components'
-import { rakuenStore, userStore, useStore } from '@stores'
+import { rakuenStore, useStore } from '@stores'
 import { useObserver } from '@utils/hooks'
 import { MODEL_RAKUEN_NEW_FLOOR_STYLE, MODEL_RAKUEN_SCROLL_DIRECTION } from '@constants'
 import { TouchScroll } from './touch-scroll'
@@ -36,7 +36,6 @@ function TouchScrollWrap({ onPress }: Props) {
           readedTime={$.readed._time}
           scrollDirection={scrollDirection}
           directFloor={$.state.directFloor}
-          isWebLogin={userStore.isWebLogin}
           newFloorStyle={MODEL_RAKUEN_NEW_FLOOR_STYLE.getLabel(rakuenStore.setting.newFloorStyle)}
           onPress={onPress}
         />
